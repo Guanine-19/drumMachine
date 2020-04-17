@@ -120,7 +120,7 @@ class DrumPadKey extends React.Component {
     const sound = document.getElementById(this.props.item.keyTrigger);
     sound.currentTime = 0;
     sound.play();
-    this.props.updateDisplayID(this.props.item.id)
+    setTimeout(()=>this.props.updateDisplayID(this.props.item.id),100);
     setTimeout(()=>{this.props.updateDisplayID('Press Key to Start')},1000);
   }
 
@@ -129,8 +129,9 @@ class DrumPadKey extends React.Component {
       <div class="p-2 col-sm-4">
         <button class="drum-pad btn btn-dark" id={this.props.item.id} onClick={this.playSound}>
             <h3>{this.props.item.keyTrigger}</h3>
-            <audio id={this.props.item.keyTrigger} class="clip" src={this.props.item.url}></audio>
+            <p>{this.props.item.id}</p>
         </button>
+        <audio id={this.props.item.keyTrigger} class="clip" src={this.props.item.url}></audio>
       </div>
     )
   }
@@ -163,9 +164,8 @@ class App extends React.Component {
       return (
         <div id="drum-machine" class="col-6 d-flex p-4">
           <div id="display" class="col-10">
-              {this.state.currentID}
             <div id="displayedText" class="d-flex fluid p-2 mb-2 justify-content-center">
-              {this.state.currentID}
+              <h5>{this.state.currentID}</h5>
             </div>
             <div class="row">
                 {this.state.currentBank.map((drumPad)=><DrumPadKey item={drumPad} updateDisplayID={this.setDisplayID}/>)}
